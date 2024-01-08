@@ -404,28 +404,31 @@
                 <div class="wpo-contact-section-wrapper">
                     <div class="wpo-contact-form-area">
                         <div class="wpo-section-title">
-                            <h2>Wirst Du dabei sein?</h2>
+                            <h2>Werden Sie teilnehmen?</h2>
                         </div>
-                        <form method="post" class="contact-validation-active" id="contact-form-main">
+        
+                        <!-- Kontaktformular -->
+                        <form method="post" action="https://formspree.io/f/mleqeyqv" class="contact-validation-active" id="contact-form-main">
                             <div>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                             </div>
                             <div>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="E-Mail" required>
                             </div>
                             <div class="radio-buttons">
                                 <p>
-                                    <input type="radio" id="attend" name="radio-group" checked>
-                                    <label for="attend">Ja, ich werde da sein</label>
+                                    <input type="radio" id="attend" name="attendance" value="Ja, ich werde teilnehmen" checked>
+                                    <label for="attend">Ja, ich werde teilnehmen</label>
                                 </p>
                                 <p>
-                                    <input type="radio" id="not" name="radio-group">
-                                    <label for="not">Entschuldigung, ich kann nicht kommen</label>
+                                    <input type="radio" id="not" name="attendance" value="Nein, ich kann nicht teilnehmen">
+                                    <label for="not">Entschuldigung, ich kann nicht teilnehmen</label>
                                 </p>
                             </div>
                             <div>
-                                <select name="guest" class="form-control">
-                                    <option disabled="disabled" selected>Anzahl der Gäste</option>
+                                <label for="guest-number">Anzahl der Gäste:</label>
+                                <select id="guest-number" name="guest" class="form-control" onchange="checkMealPreference(this)" required>
+                                    <option disabled="disabled" selected>Wählen Sie die Anzahl</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -433,27 +436,29 @@
                                     <option>5</option>
                                 </select>
                             </div>
-                            <div>
-                                <select name="meal" class="form-control last">
-                                    <option disabled="disabled" selected>Essenswunsch</option>
-                                    <option>Vegetarisch</option>
-                                    <option>Nicht Vegetarisch</option>
-                                </select>
-                            </div>
+        
+                            <!-- Felder für Gästeinformationen -->
+                            <div id="guests-container"></div>
+        
+                            <input type="text" name="_honey" style="display:none"> <!-- Honeypot-Feld gegen Spam -->
+                            <input type="hidden" name="_subject" value="Neues RSVP-Formular">
                             <div class="submit-area">
-                                <button type="submit" class="theme-btn-s3">Bitte antworten</button>
+                                <button type="submit" class="theme-btn-s3">Bestätigen Sie Ihre Teilnahme</button>
                                 <div id="c-loader">
                                     <i class="ti-reload"></i>
                                 </div>
                             </div>
-                            <div class="clearfix error-handling-messages">
-                                <div id="success">Danke</div>
-                                <div id="error"> Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.
-                                </div>
-                            </div>
                         </form>
+        
+                        <!-- Erfolgsmeldung -->
+                        <div id="form-message-success" style="display:none; color:green;">
+                            Danke! Ihre Teilnahme wurde bestätigt.
+                        </div>
+        
                         <div class="border-style"></div>
                     </div>
+        
+                    <!-- Bilder von Blumen -->
                     <div class="vector-1">
                         <img src="assets/images/contact/1.png" alt="">
                     </div>
@@ -463,6 +468,30 @@
                 </div>
             </div>
         </section>
+        <!-- Ende der wpo-contact-section -->
+        
+        <!-- JavaScript-Script -->
+        <script>
+            function checkMealPreference(selectElement) {
+                var guestsContainer = document.getElementById('guests-container');
+                var numberOfGuests = selectElement.value;
+                var additionalFieldsHTML = '';
+        
+                for(var i = 1; i <= numberOfGuests; i++) {
+                    additionalFieldsHTML += `
+                        <div class="guest-info">
+                            <label>Gast ${i}:</label>
+                            <input type="text" class="form-control" name="guest_name_${i}" placeholder="Name des Gastes ${i}" required>
+                            <select name="guest_meal_${i}" class="form-control" required>
+                                <option value="" disabled selected>Essenspräferenz</option>
+                                <option value="Vegetarisch">Vegetarisch</option>
+                                <option value="Nicht vegetarisch">Nicht vegetarisch</option>
+                            </select>
+                        </div>`;
+                }
+                guestsContainer.innerHTML = additionalFieldsHTML;
+            }
+        </script>
         <!-- end of wpo-contact-section -->
         <!-- start wpo-event-section -->
         <section class="wpo-event-section section-padding" id="event">
@@ -680,7 +709,7 @@
                                     <h3>Kontakt </h3>
                                 </div>
                                 <div class="contact-ft">
-                                    <p>irisandvictor@wedding.com</p>
+                                    <p>weddingirisandvictor@gmail.com</p>
                                 </div>
                             </div>
                         </div>

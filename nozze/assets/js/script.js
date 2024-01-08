@@ -985,7 +985,7 @@ wpo-service-active SLIDER
                         $('#form-message-success').show();
     
                         // Opcional: esconde o formulário
-                        // $(form).hide();
+                         $(form).hide();
                     },
                     error: function () {
                         // Você pode adicionar uma mensagem de erro caso necessário
