@@ -402,99 +402,79 @@
         <!-- end wpo-portfolio-section -->
 
         <!-- start of wpo-contact-section -->
-        <section class="wpo-contact-section" id="RSVP">
-            <div class="container">
-                <div class="wpo-contact-section-wrapper">
-                    <div class="wpo-contact-form-area">
-                        <div class="wpo-section-title">
-                            <h2>Will you be attending?</h2>
-                        </div>
-        
-                        <!-- Contact Form -->
-                        <form method="post" action="https://formspree.io/f/mleqeyqv" class="contact-validation-active" id="contact-form-main">
-                            <div>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
-                            </div>
-                            <div>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                            </div>
-                            <div class="radio-buttons">
-                                <p>
-                                    <input type="radio" id="attend" name="attendance" value="Yes, I will attend" checked>
-                                    <label for="attend">Yes, I will attend</label>
-                                </p>
-                                <p>
-                                    <input type="radio" id="not" name="attendance" value="No, I will not be able to attend">
-                                    <label for="not">Sorry, I will not be able to attend</label>
-                                </p>
-                            </div>
-                            <div>
-                                <label for="guest-number">Number of Guests:</label>
-                                <select id="guest-number" name="guest" class="form-control" onchange="checkMealPreference(this)" required>
-                                    <option disabled="disabled" selected>Choose the number</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- Substitua o 'path/to/your' pelo caminho correto para o seu arquivo CSS -->
+            <link rel="stylesheet" href="path/to/your/cssfile.css">
+            <title>RSVP Form</title>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        </head>
+        <body>
+            <section class="wpo-contact-section" id="RSVP">
+                <div class="container">
+                    <div class="wpo-contact-section-wrapper">
+                        <div class="wpo-contact-form-area">
+                            <div class="wpo-section-title">
+                                <h2>Você vai comparecer?</h2>
                             </div>
         
-                            <!-- Fields for Guest Information -->
-                            <div id="guests-container"></div>
-        
-                            <input type="text" name="_honey" style="display:none"> <!-- Honeypot field for spam -->
-                            <input type="hidden" name="_subject" value="New RSVP Form">
-                            <div class="submit-area">
-                                <button type="submit" class="theme-btn-s3">Confirm your presence</button>
-                                <div id="c-loader">
-                                    <i class="ti-reload"></i>
+                            <form method="post" action="https://formspree.io/f/mleqeyqv" class="contact-validation-active" id="contact-form-main">
+                                <!-- Os campos do seu formulário aqui -->
+                                <!-- ... -->
+                                <div class="submit-area">
+                                    <button type="submit" class="theme-btn-s3">Confirme a sua presença</button>
+                                    <div id="c-loader">
+                                        <i class="ti-reload"></i>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
         
-                        <!-- Success Message -->
-                        <div id="form-message-success" style="display:none; color:green;">
-                            Thank you! Your presence has been confirmed.
+                            <div id="form-message-success" style="display:none; color:green;">
+                                Obrigado! Sua presença foi confirmada.
+                            </div>
+        
+                            <div class="border-style"></div>
                         </div>
         
-                        <div class="border-style"></div>
-                    </div>
-        
-                    <!-- Images of Flowers -->
-                    <div class="vector-1">
-                        <img src="assets/images/contact/1.png" alt="">
-                    </div>
-                    <div class="vector-2">
-                        <img src="assets/images/contact/2.png" alt="">
+                        <div class="vector-1">
+                            <img src="assets/images/contact/1.png" alt="">
+                        </div>
+                        <div class="vector-2">
+                            <img src="assets/images/contact/2.png" alt="">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- end of wpo-contact-section -->
+            </section>
         
-        <!-- JavaScript Script -->
-        <script>
-            function checkMealPreference(selectElement) {
-                var guestsContainer = document.getElementById('guests-container');
-                var numberOfGuests = selectElement.value;
-                var additionalFieldsHTML = '';
+            <script>
+                $(document).ready(function() {
+                    $("#contact-form-main").on('submit', function(e) {
+                        e.preventDefault();
+                        var form = $(this);
+                        $.ajax({
+                            type: "POST",
+                            url: form.attr('action'),
+                            data: form.serialize(),
+                            success: function(response) {
+                                // Oculta o formulário
+                                form.hide();
         
-                for(var i = 1; i <= numberOfGuests; i++) {
-                    additionalFieldsHTML += `
-                        <div class="guest-info">
-                            <label>Guest ${i}:</label>
-                            <input type="text" class="form-control" name="guest_name_${i}" placeholder="Guest ${i} Name" required>
-                            <select name="guest_meal_${i}" class="form-control" required>
-                                <option value="" disabled selected>Meal Preference</option>
-                                <option value="Vegetarian">Vegetarian</option>
-                                <option value="Non-Vegetarian">Non-Vegetarian</option>
-                            </select>
-                        </div>`;
-                }
-                guestsContainer.innerHTML = additionalFieldsHTML;
-            }
-        </script>
+                                // Mostra a mensagem de sucesso
+                                $("#form-message-success").show();
+                            },
+                            error: function(err) {
+                                // Trate aqui o erro de submissão, se necessário
+                            }
+                        });
+                    });
+                });
+            </script>
+        </body>
+        </html>
+        
         <!-- end of wpo-contact-section -->
         <!-- start wpo-event-section -->
         <section class="wpo-event-section section-padding" id="event">

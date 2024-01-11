@@ -975,24 +975,7 @@ wpo-service-active SLIDER
                 meal: "Please select your Meal Name"
             },
 
-            submitHandler: function (form) {
-                $.ajax({
-                    type: "POST",
-                    url: $(form).attr('action'),
-                    data: $(form).serialize(),
-                    success: function () {
-                        // Mostra a mensagem de sucesso
-                        $('#form-message-success').show();
-    
-                        // Opcional: esconde o formulário
-                         $(form).hide();
-                    },
-                    error: function () {
-                        // Você pode adicionar uma mensagem de erro caso necessário
-                    }
-                });
-                return false; // Bloqueia o envio normal do formulário
-            }
+
         });
     }
 
